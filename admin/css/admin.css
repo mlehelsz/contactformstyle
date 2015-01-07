@@ -1,0 +1,372 @@
+/*
+Contact Form 7 - Xmas 
+Admin styles
+*/
+.cf7_style_section .cf7_style_options h4 {
+	margin: 20px 20px 10px 20px;
+}	
+.cf7_style_section .update-message {
+	margin: 20px 20px 0 20px; 
+	padding: 10px 20px; 
+	background-color: #FCF3EF; 
+	color: #E14D43; 
+	border-left: 4px solid #D54E21;
+}
+.cf7_style_section .update-message a {
+	text-decoration: none;
+}
+
+
+.cf7_style_admin #icon-themes {
+	background: url( '../images/screen-icon.png' ) no-repeat;	
+}
+
+.cf7_style_admin,
+.cf7_style_custom {  
+   	width: 700px; 
+	float:left;
+} 
+
+.cf7_style_admin .submit,
+.cf7_style_custom .submit {
+	float: left;
+}
+
+.cf7_style_admin .reset,
+.cf7_style_custom .reset {
+	float: right;
+	margin: 5px 0;
+    padding: 1.5em 0;
+}
+
+.cf7_style_templates {
+	text-align: center;	
+}
+
+.cf7_style_admin .cf7_style_select:first-child {
+	display: none;	
+}
+
+.cf7_style_templates li {
+	display: inline-block;	
+	margin: 0 10px;
+}
+
+.cf7_style_templates span {
+	display: block;
+	font-weight: 600;	
+	color: #777;
+}
+
+.cf7_style_templates img {
+	width: 200px;	
+	border: solid 1px #eee;
+	-webkit-border-radius: 7px;
+	   -moz-border-radius: 7px;
+			border-radius: 7px; 
+	opacity: 0.35;
+	cursor: pointer;
+}
+
+.cf7_style_templates li.selected img {
+	opacity: 1;
+	border: solid 1px #D8D8D8;	
+}
+
+.cf7_style_templates li.selected span {
+	color: #D24C4C;	
+}
+ 
+.cf7_style_section{  
+    border: 1px solid #ddd;  
+    border-bottom: 0;  
+    background: #fbfbfb;
+	-webkit-border-radius: 7px;
+	   -moz-border-radius: 7px;
+			border-radius: 7px;  
+	overflow: hidden;
+} 
+ 
+.cf7_style_opts label{  
+    font-size: 12px;  
+    font-weight: 700;  
+    width: 200px;  
+    display: block;  
+    float: left;   
+}  
+
+.cf7_style_input {  
+    padding: 30px 10px;  
+    border-bottom: 1px solid #ddd;  
+    border-top: 1px solid #fff;  
+	clear:both;
+} 
+ 
+.cf7_style_opts small{  
+    display: block;   
+    width: 200px;  
+    color: #999;  
+} 
+ 
+.cf7_style_opts input[type="text"], 
+.cf7_style_opts select{  
+    width: 280px;  
+    font-size: 12px;  
+    padding: 4px;  
+    color: #333;  
+    line-height: 1em;  
+    background: #fff;  
+} 
+ 
+.cf7_style_input input:focus, 
+.cf7_style_input textarea:focus{  
+    background: #fff;  
+} 
+ 
+.cf7_style_input textarea{  
+    width: 280px;  
+    height: 175px;  
+    font-size: 12px;  
+    padding: 4px;  
+    color: #333;  
+    line-height: 1.5em;  
+    background: #f3f3f3;  
+} 
+ 
+.cf7_style_title h3 {  
+    font-size: 1em;  
+    text-transform: uppercase;  
+    margin: 0;  
+    font-weight: bold;  
+    color: #232323;  
+    float: left;   
+    padding: 14px 4px 14px 10px;  
+} 
+	
+.cf7_style_title{   
+    border-bottom: 1px solid #ddd;  
+    background: #f2f2f2;  
+    padding: 0;  
+	-webkit-border-radius: 5px 5px 0 0;
+	   -moz-border-radius: 5px 5px 0 0;
+			border-radius: 5px 5px 0 0;
+}  
+
+.cf7_style_title span.submit{  
+    display: block;    
+    margin: 0;  
+    padding: 0;  
+    width: 15%;  
+    padding: 14px 0;  
+} 
+ 
+.clearfix{  
+    clear: both;  
+} 
+ 
+.cf7_style_table th, .cf7_style_table td{  
+    border: 1px solid #bbb;  
+    padding: 10px;  
+    text-align: center;  
+} 
+ 
+.cf7_style_table th, 
+.cf7_style_table td.feature{  
+    border-color: #888;  
+}
+
+.cf7_style_section .button-primary {
+	margin-left: 5px;	
+}
+
+.cf7_style_opts input[type="text"].wp-color-picker {
+	width: 70px;
+}
+
+
+
+/*Css by Mircea*/
+
+#about-section {
+	position:relative;
+	display:block;
+	max-width:30%;
+	min-width:30%;
+	width:30%;
+	float:left;
+	margin-top: 100px;
+	border: 1px solid #ddd;  
+    border-bottom: 0;  
+    background: #fbfbfb;
+	-webkit-border-radius: 7px;
+	   -moz-border-radius: 7px;
+			border-radius: 7px;  
+	overflow: hidden;
+}
+
+.cf7_style_options {
+	clear:both;
+	float:left;
+	width:100%;
+}
+
+#cf7-feedbox h3 {
+	min-width:100%;
+	background-color:#f2f2f2;
+}
+
+.cf7_style_options p {
+	padding-left:20px;
+	padding-right:20px;
+}
+
+.cf7_style_options .cf7_style_select:first-child {
+	display: none;	
+}
+
+#font-viewer {
+	margin-top:0px;
+	width:90%;
+	height:100px;
+	background-color:white;
+	position:relative;
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+	border:1px solid #C0C0C0;
+	overflow:hidden;
+}
+
+#font-viewer p {
+	padding-left:10px;
+	padding-right:10px;
+	padding-top:10px;
+	padding-bottom:10px;
+	font-size:15px;
+}
+
+#font-viewer .loading  p{
+	text-align:center;
+	
+}
+
+small.preview {
+	text-align:center;
+	float:none;
+	width:auto;
+	margin-bottom:0px;
+}
+
+#font-viewer2 {
+	margin-top:0px;
+	width:90%;
+	height:100px;
+	background-color:white;
+	position:relative;
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+	border:1px solid #C0C0C0;
+	overflow:hidden;
+}
+
+#font-viewer2 p {
+	padding-left:10px;
+	padding-right:10px;
+	padding-top:10px;
+	padding-bottom:10px;
+	font-size:15px;
+}
+
+#font-viewer2 .loading  p{
+	text-align:center;
+	
+}
+
+#border-viewer {
+	margin-top:0px;
+	width:90%;
+	height:100px;
+	background-color:white;
+	position:relative;
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+	border:1px solid #C0C0C0;
+	overflow:hidden;
+}
+
+#border-viewer p {
+	padding-left:10px;
+	padding-right:10px;
+	padding-top:10px;
+	padding-bottom:10px;
+	margin-left:20px;
+	margin-right:20px;
+	margin-top:20px;
+	font-size:15px;
+	border:1px solid green;
+}
+
+#border-viewer .loading  p {
+	text-align:center;
+	
+}
+
+.border-select {
+	margin-bottom: 50px;
+}
+
+@font-face {
+  font-family: 'Joti One';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Joti One'), local('JotiOne-Regular'), url(http://themes.googleusercontent.com/static/fonts/jotione/v1/jivCpCi5Y7-IAGZU7bq-pvesZW2xOQ-xsNqO47m55DA.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Henny Penny';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Henny Penny'), local('HennyPenny-Regular'), url(http://themes.googleusercontent.com/static/fonts/hennypenny/v1/5KmZ_gfx8tPgQLMk4S-PvobN6UDyHWBl620a-IRfuBk.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Emilys Candy';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Emilys Candy'), local('EmilysCandy-Regular'), url(http://themes.googleusercontent.com/static/fonts/emilyscandy/v1/PofLVm6v1SwZGOzC8s-I3Ra1RVmPjeKy21_GQJaLlJI.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Pirata One';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Pirata One'), local('PirataOne-Regular'), url(http://themes.googleusercontent.com/static/fonts/pirataone/v1/AFeg8ejJtTM5d0wUfgcmXhsxEYwM7FgeyaSgU71cLG0.woff) format('woff');
+}
+
+.panel {
+	width:100%;
+	cursor:pointer;
+	border-bottom: 1px solid #DDD;
+	background: none repeat scroll 0% 0% #F2F2F2;
+	padding: 0px;
+	font-size: 1em;
+	text-transform: uppercase;
+	margin: 0px;
+	font-weight: bold;
+	color: #232323;
+	float: left;
+	padding: 14px 4px 14px 10px;
+}
+
+.submitbuttonset,
+.generalssetpanel  {
+	clear:both;
+}
+
+.generals,
+.labelsandinputsset,
+.submitbuttonset {
+	display:none;
+}
