@@ -1,7 +1,13 @@
+/* After update admin css */
+.wp-admin .widefat .different-style input {
+	margin: 0 10px 0 0;
+	height: 21px;
+}
+
 /*
 Contact Form 7 - Xmas 
 Admin styles
-*/
+
 .cf7_style_section .cf7_style_options h4 {
 	margin: 20px 20px 10px 20px;
 }	
@@ -185,7 +191,7 @@ Admin styles
 
 
 
-/*Css by Mircea*/
+/*Css by Mircea
 
 #about-section {
 	position:relative;
@@ -370,3 +376,4 @@ small.preview {
 .submitbuttonset {
 	display:none;
 }
+*/

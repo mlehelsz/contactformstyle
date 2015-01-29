@@ -30,5 +30,8 @@ jQuery(document).ready( function( $ ) {
 	$('.submitbuttonsetpanel').click(function() {
 		$('.submitbuttonset').slideToggle();
 	});
+	$("#select_all").on("click", function(){
+		$(".cf7style_body_select_all input").prop('checked', ( $(this).is(":checked") ) ? true : false );
+	});
 });
 
