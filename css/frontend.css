@@ -258,6 +258,8 @@
 	border: none;
 	box-shadow: none;
 	background: transparent;
+	display: block;
+	margin: 0 auto;
 }
 .valentines-day-birds input[type="submit"]:hover,
 .valentines-day-birds input[type="submit"]:focus {
@@ -436,9 +438,9 @@
 .christmas-classic .wpcf7-submit {
 	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
 	border: medium none;
-	bottom: -238px;
+	bottom: -252px;
 	height: 70px;
-	left: 30px;
+	left: 2px;
 	position: absolute;
 	text-indent: -9999px;
 	width: 78px;
@@ -651,14 +653,20 @@
 	left: -2px;
 }
 .christmas-simple .header {
+	background-position: 1px 1px;
+	border-radius: 12px 12px 0 0;
+	left: -2px;
 	top: -35px;
+	width: 421px;
 }
 .christmas-simple .footer {
-	border-top: none;
-	border-bottom: dashed 2px #542c0e;
 	background: url( '../images/xmas-simple/footer.png' ) no-repeat center top;
-	padding-bottom: 10px;
-	bottom: -17px;
+	border-bottom: 2px dashed #542c0e;
+	border-radius: 0 0 20px 20px;
+	border-top: medium none;
+	bottom: -40px;
+	padding-bottom: 3px;
+	width: 421px;
 }
 .christmas-simple .ribbon {
 	width: 182px;
