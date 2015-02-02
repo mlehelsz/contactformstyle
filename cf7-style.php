@@ -52,7 +52,7 @@ function get_predefined_cf7_style_template_data() {
 	);
 }// end of get_predefined_cf7_style_template_data
 
-include_once( 'cf7-style-settings.php' );
+//include_once( 'cf7-style-settings.php' );
 function cf7_style_admin_scripts(){
 	wp_enqueue_style( 'wp-color-picker' ); 
 	wp_enqueue_style( "cf7-style-admin-style", plugin_dir_url( __FILE__ ) . "admin/css/admin.css", false, "1.0", "all");  
