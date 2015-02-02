@@ -31,8 +31,9 @@ function cf7_style_general_settings_array(){
 /**
 * renders the custom meta box's inputs
 */
-function cf7_style_render_settings( $type, $label, $value, $description ){
-	$cf7s_id = str_replace( " ", "-", $label );
+function cf7_style_render_settings( $type, $label, $options, $value, $description ){
+
+	$cf7s_id = strtolower( str_replace( " ", "-", $label ) );
 	?>
 	<div class="element">
 		<label for="cf7s-<?php  echo $cf7s_id; ?>">
@@ -46,14 +47,14 @@ function cf7_style_render_settings( $type, $label, $value, $description ){
 					<td>
 						<?php $class  = ( "color-selector" == $type ) ? "cf7-style-color-field" : "";
 						if( "selectbox" == $type ){ ?>
-							<select id="cf7s-<?php  echo $cf7s_id; ?>" name="<?php  echo $cf7s_id; ?>">
+							<select id="cf7s-<?php  echo $cf7s_id; ?>" name="cf7stylecustom[<?php  echo $cf7s_id; ?>]">
 								<option>Default</option>
-								<?php foreach( $value as $option ) {?>
-			                					<option value="<?php echo $option; ?>"><?php echo $option; ?></option>
+								<?php foreach( $options as $option ) {?>
+			                					<option value="<?php echo $option; ?>"<?php if($option == $value) echo " selected='selected'";?>><?php echo $option; ?></option>
 			                				<?php }//foreach end ?>	
 			                			</select>	
 						<?php } else { ?>
-							<input type="<?php  echo ( $type == 'color-selector' ) ? 'text' : $type; ?>" id="cf7s-<?php  echo $cf7s_id; ?>" name="cf7s-<?php  echo $cf7s_id; ?>" value="<?php  echo $value; ?>" <?php if( $class != "" ) echo 'class="'.$class.'"';?>/>
+							<input type="<?php  echo ( $type == 'color-selector' ) ? 'text' : $type; ?>" id="cf7s-<?php  echo $cf7s_id; ?>" name="cf7stylecustom[<?php  echo $cf7s_id; ?>]" value="<?php  echo $value; ?>" <?php if( $class != "" ) echo 'class="'.$class.'"';?>/>
 						<?php }//else end ?>
 						<small><?php  echo __( $description, "cf7style_text_domain"); ?></small>
 					</td>
@@ -126,14 +127,16 @@ class cf7_style_meta_boxes {
 		}
 	}
 	public function render_meta_box_style_customizer( $post ) {
+		$settings_array = unserialize( get_post_meta( $post->ID, 'cf7_style_custom_styles', true ));
 		wp_nonce_field( 'cf_7_style_style_customizer_inner_custom_box', 'cf_7_style_customizer_custom_box_nonce' );
 		?>
 		<div class="general-settings">
 			<h3><?php  echo __('General Style Settings for the current custom style.', "cf7style_text_domain"); ?></h3>
+
 			<?php 
-				foreach( cf7_style_general_settings_array() as $settings ){
-					$current_val = ( $settings["type"] == "selectbox" ) ? $settings["value"] : "";
-					cf7_style_render_settings( $settings["type"], $settings["label"], $current_val, $settings["description"] );
+				foreach( cf7_style_general_settings_array() as $index=>$settings ){
+					$current_val = $settings_array[strtolower( str_replace( " ", "-", $settings["label"] ) )];
+					cf7_style_render_settings( $settings["type"], $settings["label"], $settings["value"], $current_val, $settings["description"] );
 				}
 			?>
 		</div><!-- /.general-settings -->
@@ -166,7 +169,10 @@ class cf7_style_meta_boxes {
 			}
 				
 		}
-
+		if ( isset( $_POST['cf7stylecustom'] ) ) {
+			$serialized_result = serialize( $_POST['cf7stylecustom'] );
+			update_post_meta( $post_id, 'cf7_style_custom_styles', $serialized_result, "");
+		}
 
 	}
 
