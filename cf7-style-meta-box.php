@@ -2,28 +2,28 @@
 function cf7_style_general_settings_array(){
 	return array( 
 	array(
-		"type" 		=> "color-selector",
+		"type" 			=> "color-selector",
 		"label" 		=> "Form background",
 		"description" 	=> "Choose the background color of the form"
 	),array(
-		"type" 		=> "number",
+		"type" 			=> "number",
 		"label" 		=> "Form width",
 		"description" 	=> "Form width in pixels"
 	),array(
-		"type" 		=> "number",
+		"type" 			=> "number",
 		"label" 		=> "Form border size",
 		"description" 	=> "Form border size in pixels"
 	),array(
-		"type" 		=> "selectbox",
+		"type" 			=> "selectbox",
 		"label" 		=> "Form border type",
 		"value" 		=> array( "none", "solid", "dotted","double", "groove", "ridge", "inset", "outset" ), // ???
 		"description" 	=> "Type of the Border of the Form"	
 	),array(
-		"type" 		=> "color-selector",
+		"type" 			=> "color-selector",
 		"label" 		=> "Form border color",
 		"description" 	=> "Choose the form's border color"
 	),array(
-		"type" 		=> "number",
+		"type" 			=> "number",
 		"label" 		=> "Form border radius",
 		"description" 	=> "Choose the form's border radius in pixels"
 	));
@@ -36,23 +36,30 @@ function cf7_style_render_settings( $type, $label, $value, $description ){
 	?>
 	<div class="element">
 		<label for="cf7s-<?php  echo $cf7s_id; ?>">
-			<strong>
-				<?php  echo __( $label, "cf7style_text_domain"); ?>
-			</strong>
-			<?php $class  = ( "color-selector" == $type ) ? "cf7-style-color-field" : "";
-			if( "selectbox" == $type ){ ?>
-				<select id="cf7s-<?php  echo $cf7s_id; ?>" name="<?php  echo $cf7s_id; ?>">
-					<option>Default</option>
-					<?php foreach( $value as $option ) {?>
-                					<option value="<?php echo $option; ?>"><?php echo $option; ?></option>
-                				<?php }//foreach end ?>	
-                			</select>	
-			<?php } else { ?>
-				<input type="<?php  echo ( $type == 'color-selector' ) ? 'text' : $type; ?>" id="cf7s-<?php  echo $cf7s_id; ?>" name="cf7s-<?php  echo $cf7s_id; ?>" value="<?php  echo $value; ?>" <?php if( $class != "" ) echo 'class="'.$class.'"';?>/>
-			<?php }//else end ?>
-			<span class="clear"></span>
+			<table>
+				<tr>
+					<td>
+						<strong>
+							<?php  echo __( $label, "cf7style_text_domain"); ?>
+						</strong>
+					</td>
+					<td>
+						<?php $class  = ( "color-selector" == $type ) ? "cf7-style-color-field" : "";
+						if( "selectbox" == $type ){ ?>
+							<select id="cf7s-<?php  echo $cf7s_id; ?>" name="<?php  echo $cf7s_id; ?>">
+								<option>Default</option>
+								<?php foreach( $value as $option ) {?>
+			                					<option value="<?php echo $option; ?>"><?php echo $option; ?></option>
+			                				<?php }//foreach end ?>	
+			                			</select>	
+						<?php } else { ?>
+							<input type="<?php  echo ( $type == 'color-selector' ) ? 'text' : $type; ?>" id="cf7s-<?php  echo $cf7s_id; ?>" name="cf7s-<?php  echo $cf7s_id; ?>" value="<?php  echo $value; ?>" <?php if( $class != "" ) echo 'class="'.$class.'"';?>/>
+						<?php }//else end ?>
+						<small><?php  echo __( $description, "cf7style_text_domain"); ?></small>
+					</td>
+				</tr>
+			</table>
 		</label>
-		<small><?php  echo __( $description, "cf7style_text_domain"); ?></small>
 	</div><!-- /.element -->
 	<?php
 }
@@ -110,7 +117,7 @@ class cf7_style_meta_boxes {
 		if ( in_array( $post_type, $post_types ) && $custom_cat[0]->name == "custom style" ) {
 			add_meta_box(
 			'cf7_style_meta_box_style_customizer'
-			,__( 'General settings', 'myplugin_textdomain' )
+			,__( 'Custom style settings', 'myplugin_textdomain' )
 			,array( $this, 'render_meta_box_style_customizer' )
 			,$post_type
 			,'advanced'
@@ -122,7 +129,7 @@ class cf7_style_meta_boxes {
 		wp_nonce_field( 'cf_7_style_style_customizer_inner_custom_box', 'cf_7_style_customizer_custom_box_nonce' );
 		?>
 		<div class="general-settings">
-			<h3><?php  echo __('Here you can customize the contact form 7 form\'s style used.', "cf7style_text_domain"); ?></h3>
+			<h3><?php  echo __('General Style Settings for the current custom style.', "cf7style_text_domain"); ?></h3>
 			<?php 
 				foreach( cf7_style_general_settings_array() as $settings ){
 					$current_val = ( $settings["type"] == "selectbox" ) ? $settings["value"] : "";
@@ -259,7 +266,7 @@ class cf7_style_meta_boxes {
 				echo '</tbody>';
 			echo '</table>';
 		} else {
-			echo '<p class="description">' . __( 'Please create a form. You can do it by clicking') . '<a href="' . admin_url() . 'admin.php?page=wpcf7-new" target="_blank">' . __(' here') . '</a></p>';
+			echo '-----------<p class="description">' . __( 'Please create a form. You can do it by clicking') . '<a href="' . admin_url() . 'admin.php?page=wpcf7-new" target="_blank">' . __(' here') . '</a></p>';
 		}
 	}
 	/**

@@ -23,21 +23,14 @@
 }
 .general-settings label strong {
 	display: block;
-	text-align: right;
-	float: left;
 	margin-right: 10px;
-	width: 150px;
-	text-align: right;
 }
 .general-settings label input {
-	float: left;
 	margin-right: 5px;
 }
 .general-settings small {
 	display: block;
 	color: #999;
-	margin: 0 0 0 160px;
-	clear: both;
 }
 .general-settings .element {
 	width: 100%;
