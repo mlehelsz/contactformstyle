@@ -2,12 +2,15 @@
 jQuery functions for the Front end area
 */
 jQuery(document).ready( function( $ ) {
-
+	var vdayRoses = 0;
 	// Valentine's Day Classic
 	$(".valentines-day-classic").prepend("<div class='heart'></div>");
 	
 	//valentine's Day Rose
-	$(".valentines-day-roses").append("<div class='letter-box'></div>").find("input[type='text'], input[type='password'], input[type='email']").parent().parent().appendTo($(".letter-box"));
+	if( $(".valentines-day-roses").length > 0 ){
+		$(".valentines-day-roses").append("<div class='letter-box'></div>").find("input[type='text'], input[type='password'], input[type='email']").parent().parent().appendTo($(".letter-box"));
+	}
+	
 	
 	//valentine's Day Birds
 	$('.valentines-day-birds').wrap("<div class='valentines-day-birds-container'></div>");

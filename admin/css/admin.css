@@ -26,7 +26,7 @@
 	text-align: right;
 	float: left;
 	margin-right: 10px;
-	width: 180px;
+	width: 150px;
 	text-align: right;
 }
 .general-settings label input {
@@ -36,7 +36,8 @@
 .general-settings small {
 	display: block;
 	color: #999;
-	margin: 12px 0 0 190px;
+	margin: 0 0 0 160px;
+	clear: both;
 }
 .general-settings .element {
 	width: 100%;

@@ -1,4 +1,61 @@
-<?php 
+<?php
+function cf7_style_general_settings_array(){
+	return array( 
+	array(
+		"type" 		=> "color-selector",
+		"label" 		=> "Form background",
+		"description" 	=> "Choose the background color of the form"
+	),array(
+		"type" 		=> "number",
+		"label" 		=> "Form width",
+		"description" 	=> "Form width in pixels"
+	),array(
+		"type" 		=> "number",
+		"label" 		=> "Form border size",
+		"description" 	=> "Form border size in pixels"
+	),array(
+		"type" 		=> "selectbox",
+		"label" 		=> "Form border type",
+		"value" 		=> array( "none", "solid", "dotted","double", "groove", "ridge", "inset", "outset" ), // ???
+		"description" 	=> "Type of the Border of the Form"	
+	),array(
+		"type" 		=> "color-selector",
+		"label" 		=> "Form border color",
+		"description" 	=> "Choose the form's border color"
+	),array(
+		"type" 		=> "number",
+		"label" 		=> "Form border radius",
+		"description" 	=> "Choose the form's border radius in pixels"
+	));
+}
+/**
+* renders the custom meta box's inputs
+*/
+function cf7_style_render_settings( $type, $label, $value, $description ){
+	$cf7s_id = str_replace( " ", "-", $label );
+	?>
+	<div class="element">
+		<label for="cf7s-<?php  echo $cf7s_id; ?>">
+			<strong>
+				<?php  echo __( $label, "cf7style_text_domain"); ?>
+			</strong>
+			<?php $class  = ( "color-selector" == $type ) ? "cf7-style-color-field" : "";
+			if( "selectbox" == $type ){ ?>
+				<select id="cf7s-<?php  echo $cf7s_id; ?>" name="<?php  echo $cf7s_id; ?>">
+					<option>Default</option>
+					<?php foreach( $value as $option ) {?>
+                					<option value="<?php echo $option; ?>"><?php echo $option; ?></option>
+                				<?php }//foreach end ?>	
+                			</select>	
+			<?php } else { ?>
+				<input type="<?php  echo ( $type == 'color-selector' ) ? 'text' : $type; ?>" id="cf7s-<?php  echo $cf7s_id; ?>" name="cf7s-<?php  echo $cf7s_id; ?>" value="<?php  echo $value; ?>" <?php if( $class != "" ) echo 'class="'.$class.'"';?>/>
+			<?php }//else end ?>
+			<span class="clear"></span>
+		</label>
+		<small><?php  echo __( $description, "cf7style_text_domain"); ?></small>
+	</div><!-- /.element -->
+	<?php
+}
 /**
  * Calls the class the meta box. Used for selecting forms for each style.
  */
@@ -66,185 +123,14 @@ class cf7_style_meta_boxes {
 		?>
 		<div class="general-settings">
 			<h3><?php  echo __('Here you can customize the contact form 7 form\'s style used.', "cf7style_text_domain"); ?></h3>
-			<div class="element">
-				<label for="cf7s-form-background">
-					<strong><?php  echo __('Form background:', "cf7style_text_domain"); ?></strong>
-					<input type="text" id="cf7s-form-background" name="Form Background" value="" class="cf7-style-color-field" />
-					<span class="clear"></span>
-				</label>
-				<small><?php  echo __('Choose the background color of the form', "cf7style_text_domain"); ?></small>
-			</div><!-- /.element -->
-			<div class="element">
-				<label for="cf7s-form-width">
-					<strong><?php  echo __('Form width:', "cf7style_text_domain"); ?></strong>
-					<input type="number" id="cf7s-form-width" name="Form width" value="" class="" />px
-					<span class="clear"></span>
-				</label>
-				<small><?php  echo __('Form width in pixels', "cf7style_text_domain"); ?></small>
-			</div><!-- /.element -->
-			<div class="element">
-				<label for="cf7s-form-border-size">
-					<strong><?php  echo __('Form border size:', "cf7style_text_domain"); ?></strong>
-					<input type="number" id="cf7s-form-border-size" name="Form border size" value="" class="" />px
-					<span class="clear"></span>
-				</label>
-				<small><?php  echo __('Form border size in pixels', "cf7style_text_domain"); ?></small>
-			</div><!-- /.element -->
-			<div class="element">
-				<label for="cf7s-form-border-type">
-					<strong><?php  echo __('Form border type:', "cf7style_text_domain"); ?></strong>
-					<select id="cf7s-form-border-type" name="Form border type">
-            						<option>Default</option>
-                					<option value="none">none</option>
-                					<option value="solid">solid</option>
-                					<option value="dotted">dotted</option>
-                					<option value="double">double</option>
-                					<option value="groove">groove</option>
-                					<option value="ridge">ridge</option>
-                					<option value="inset">inset</option>
-                					<option value="outset">outset</option>
-                				</select>
-					<span class="clear"></span>
-				</label>
-				<small><?php  echo __('Type of the Form border', "cf7style_text_domain"); ?></small>
-			</div><!-- /.element -->
-			<div class="element">
-				<label for="cf7s-form-border-color">
-					<strong><?php  echo __('Form border color:', "cf7style_text_domain"); ?></strong>
-					<input type="text" id="cf7s-form-border-color" name="Form Border Color" value="" class="cf7-style-color-field" />
-					<span class="clear"></span>
-				</label>
-				<small><?php  echo __('Choose the form border color', "cf7style_text_domain"); ?></small>
-			</div><!-- /.element -->
-			<div class="element">
-				<label for="cf7s-form-border-radius">
-					<strong><?php  echo __('Form border radius:', "cf7style_text_domain"); ?></strong>
-					<input type="number" id="cf7s-form-border-radius" name="Form border radius" value="" class="" />px
-					<span class="clear"></span>
-				</label>
-				<small><?php  echo __('Form border radius in pixels', "cf7style_text_domain"); ?></small>
-			</div><!-- /.element -->
+			<?php 
+				foreach( cf7_style_general_settings_array() as $settings ){
+					$current_val = ( $settings["type"] == "selectbox" ) ? $settings["value"] : "";
+					cf7_style_render_settings( $settings["type"], $settings["label"], $current_val, $settings["description"] );
+				}
+			?>
 		</div><!-- /.general-settings -->
-		<div class="general-settings">
-			<div class="element">
-				<label for="cf7s-form-background">
-					<strong><?php  echo __('Form background:', "cf7style_text_domain"); ?></strong>
-					<input type="text" id="cf7s-form-background" name="Form Background" value="" class="cf7-style-color-field" />
-					<span class="clear"></span>
-				</label>
-				<small><?php  echo __('Choose the background color of the form', "cf7style_text_domain"); ?></small>
-			</div><!-- /.element -->
-			<div class="element">
-				<label for="cf7s-form-width">
-					<strong><?php  echo __('Form width:', "cf7style_text_domain"); ?></strong>
-					<input type="number" id="cf7s-form-width" name="Form width" value="" class="" />px
-					<span class="clear"></span>
-				</label>
-				<small><?php  echo __('Form width in pixels', "cf7style_text_domain"); ?></small>
-			</div><!-- /.element -->
-			<div class="element">
-				<label for="cf7s-form-border-size">
-					<strong><?php  echo __('Form border size:', "cf7style_text_domain"); ?></strong>
-					<input type="number" id="cf7s-form-border-size" name="Form border size" value="" class="" />px
-					<span class="clear"></span>
-				</label>
-				<small><?php  echo __('Form border size in pixels', "cf7style_text_domain"); ?></small>
-			</div><!-- /.element -->
-			<div class="element">
-				<label for="cf7s-form-border-type">
-					<strong><?php  echo __('Form border type:', "cf7style_text_domain"); ?></strong>
-					<select id="cf7s-form-border-type" name="Form border type">
-            						<option>Default</option>
-                					<option value="none">none</option>
-                					<option value="solid">solid</option>
-                					<option value="dotted">dotted</option>
-                					<option value="double">double</option>
-                					<option value="groove">groove</option>
-                					<option value="ridge">ridge</option>
-                					<option value="inset">inset</option>
-                					<option value="outset">outset</option>
-                				</select>
-					<span class="clear"></span>
-				</label>
-				<small><?php  echo __('Type of the Form border', "cf7style_text_domain"); ?></small>
-			</div><!-- /.element -->
-			<div class="element">
-				<label for="cf7s-form-border-color">
-					<strong><?php  echo __('Form border color:', "cf7style_text_domain"); ?></strong>
-					<input type="text" id="cf7s-form-border-color" name="Form Border Color" value="" class="cf7-style-color-field" />
-					<span class="clear"></span>
-				</label>
-				<small><?php  echo __('Choose the form border color', "cf7style_text_domain"); ?></small>
-			</div><!-- /.element -->
-			<div class="element">
-				<label for="cf7s-form-border-radius">
-					<strong><?php  echo __('Form border radius:', "cf7style_text_domain"); ?></strong>
-					<input type="number" id="cf7s-form-border-radius" name="Form border radius" value="" class="" />px
-					<span class="clear"></span>
-				</label>
-				<small><?php  echo __('Form border radius in pixels', "cf7style_text_domain"); ?></small>
-			</div><!-- /.element -->
-		</div><!-- /.general-settings -->
-		<div class="general-settings">
-			<div class="element">
-				<label for="cf7s-form-background">
-					<strong><?php  echo __('Form background:', "cf7style_text_domain"); ?></strong>
-					<input type="text" id="cf7s-form-background" name="Form Background" value="" class="cf7-style-color-field" />
-					<span class="clear"></span>
-				</label>
-				<small><?php  echo __('Choose the background color of the form', "cf7style_text_domain"); ?></small>
-			</div><!-- /.element -->
-			<div class="element">
-				<label for="cf7s-form-width">
-					<strong><?php  echo __('Form width:', "cf7style_text_domain"); ?></strong>
-					<input type="number" id="cf7s-form-width" name="Form width" value="" class="" />px
-					<span class="clear"></span>
-				</label>
-				<small><?php  echo __('Form width in pixels', "cf7style_text_domain"); ?></small>
-			</div><!-- /.element -->
-			<div class="element">
-				<label for="cf7s-form-border-size">
-					<strong><?php  echo __('Form border size:', "cf7style_text_domain"); ?></strong>
-					<input type="number" id="cf7s-form-border-size" name="Form border size" value="" class="" />px
-					<span class="clear"></span>
-				</label>
-				<small><?php  echo __('Form border size in pixels', "cf7style_text_domain"); ?></small>
-			</div><!-- /.element -->
-			<div class="element">
-				<label for="cf7s-form-border-type">
-					<strong><?php  echo __('Form border type:', "cf7style_text_domain"); ?></strong>
-					<select id="cf7s-form-border-type" name="Form border type">
-            						<option>Default</option>
-                					<option value="none">none</option>
-                					<option value="solid">solid</option>
-                					<option value="dotted">dotted</option>
-                					<option value="double">double</option>
-                					<option value="groove">groove</option>
-                					<option value="ridge">ridge</option>
-                					<option value="inset">inset</option>
-                					<option value="outset">outset</option>
-                				</select>
-					<span class="clear"></span>
-				</label>
-				<small><?php  echo __('Type of the Form border', "cf7style_text_domain"); ?></small>
-			</div><!-- /.element -->
-			<div class="element">
-				<label for="cf7s-form-border-color">
-					<strong><?php  echo __('Form border color:', "cf7style_text_domain"); ?></strong>
-					<input type="text" id="cf7s-form-border-color" name="Form Border Color" value="" class="cf7-style-color-field" />
-					<span class="clear"></span>
-				</label>
-				<small><?php  echo __('Choose the form border color', "cf7style_text_domain"); ?></small>
-			</div><!-- /.element -->
-			<div class="element">
-				<label for="cf7s-form-border-radius">
-					<strong><?php  echo __('Form border radius:', "cf7style_text_domain"); ?></strong>
-					<input type="number" id="cf7s-form-border-radius" name="Form border radius" value="" class="" />px
-					<span class="clear"></span>
-				</label>
-				<small><?php  echo __('Form border radius in pixels', "cf7style_text_domain"); ?></small>
-			</div><!-- /.element -->
-		</div><!-- /.general-settings -->
+		
 		<div class="clear"></div>
 		<?php
 	}
