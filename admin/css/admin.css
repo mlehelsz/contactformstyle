@@ -31,6 +31,8 @@
 .general-settings small {
 	display: block;
 	color: #999;
+	margin-top: 5px;
+	line-height: 12px;
 }
 .general-settings .element {
 	width: 100%;
