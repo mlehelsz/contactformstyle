@@ -1,37 +1,159 @@
 <?php
 function cf7_style_general_settings_array(){
-	return array( 
-	array(
-		"type" 			=> "color-selector",
-		"label" 		=> "Form background",
-		"description" 	=> "Choose the background color of the form"
-	),array(
-		"type" 			=> "number",
-		"label" 		=> "Form width",
-		"description" 	=> "Form width in pixels"
-	),array(
-		"type" 			=> "number",
-		"label" 		=> "Form border size",
-		"description" 	=> "Form border size in pixels"
-	),array(
-		"type" 			=> "selectbox",
-		"label" 		=> "Form border type",
-		"value" 		=> array( "none", "solid", "dotted","double", "groove", "ridge", "inset", "outset" ), // ???
-		"description" 	=> "Type of the Border of the Form"	
-	),array(
-		"type" 			=> "color-selector",
-		"label" 		=> "Form border color",
-		"description" 	=> "Choose the form's border color"
-	),array(
-		"type" 			=> "number",
-		"label" 		=> "Form border radius",
-		"description" 	=> "Choose the form's border radius in pixels"
+	return array(
+	
+	"general_settings" => array(
+		/*!!! labels have to be unique*/
+		array(
+			"type" 		=> "color-selector",
+			"label" 		=> "Form background",
+			"description" 	=> "Choose the background color of the form"
+		),array(
+			"type" 		=> "number",
+			"label" 		=> "Form width",
+			"description" 	=> "Form width in pixels"
+		),array(
+			"type" 		=> "number",
+			"label" 		=> "Form border size",
+			"description" 	=> "Form border size in pixels"
+		),array(
+			"type" 		=> "selectbox",
+			"label" 		=> "Form border type",
+			"value" 		=> array( "none", "solid", "dotted","double", "groove", "ridge", "inset", "outset" ), // ???
+			"description" 	=> "Type of the Border of the Form"	
+		),array(
+			"type" 		=> "color-selector",
+			"label" 		=> "Form border color",
+			"description" 	=> "Choose the form's border color"
+		),array(
+			"type" 		=> "number",
+			"label" 		=> "Form border radius",
+			"description" 	=> "Choose the form's border radius in pixels"
+		)
+	),
+	"inputs_and_labels_settings" => array(
+		array(
+			"type" 		=> "color-selector",
+			"label" 		=> "Input Background",
+			"description" 	=> "Choose the background color of the input"
+		),array(
+			"type" 		=> "color-selector",
+			"label" 		=> "Input Text Color",
+			"description" 	=> "Choose the color for the input text"
+		),array(
+			"type" 		=> "color-selector",
+			"label" 		=> "Input Border Color",
+			"description" 	=> "Choose a color for the input border"
+		),array(
+			"type" 		=> "selectbox",
+			"label" 		=> "Input Fonts",
+			"value" 		=> array( "none", "solid", "dotted","double", "groove", "ridge", "inset", "outset" ), // ???
+			"description" 	=> "Choose from the following Google Fonts"	
+		),array(
+			"type" 		=> "number",
+			"label" 		=> "Input font size",
+			"description" 	=> "Size of the input fonts in pixels"
+		),array(
+			"type" 		=> "number",
+			"label" 		=> "Input border size",
+			"description" 	=> "Size of the input border in pixels"
+		),array(
+			"type" 		=> "selectbox",
+			"label" 		=> "Input border type",
+			"value" 		=> array( "none", "solid", "dotted","double", "groove", "ridge", "inset", "outset" ), // ???
+			"description" 	=> "Type of the input border"	
+		),array(
+			"type" 		=> "number",
+			"label" 		=> "Input border radius",
+			"description" 	=> "Border radius in px"
+		),array(
+			"type" 		=> "selectbox",
+			"label" 		=> "Input font style",
+			"value" 		=> array( "bold", "italic", "underline","normal" ), // ???
+			"description" 	=> "Choose from the following font styles"	
+		),array(
+			"type" 		=> "number",
+			"label" 		=> "Input width",
+			"description" 	=> "Input width in pixels"
+		),array(
+			"type" 		=> "number",
+			"label" 		=> "Input height",
+			"description" 	=> "Input height in pixels"
+		),array(
+			"type" 		=> "number",
+			"label" 		=> "Textarea height",
+			"description" 	=> "Textarea height in pixels"
+		),array(
+			"type" 		=> "text",
+			"label" 		=> "Input padding",
+			"description" 	=> "hover here for example",
+			"title"		=> "Ex 1: 25px 50px 75px 100px;  top padding is 25px right padding is 50px bottom padding is 75px left padding is 100px   Ex 2: 25px 50px 75px;  top padding is 25px right and left paddings are 50px bottom padding is 75px   Ex 3: 25px 50px;  top and bottom paddings are 25px right and left paddings are 50px   Ex 4: 25px;  all four paddings are 25px  "
+		),array(
+			"type" 		=> "text",
+			"label" 		=> "Input margin",
+			"description" 	=> "hover here for example",
+			"title"		=> "Ex 1: 25px 50px 75px 100px;  top margin is 25px right margin is 50px bottom margin is 75px left margin is 100px   Ex 2: 25px 50px 75px;  top margin is 25px right and left margin are 50px bottom margin is 75px   Ex 3: 25px 50px;  top and bottom margin are 25px right and left margin are 50px   Ex 4: 25px;  all four margin are 25px"
+		),array(
+			"type" 		=> "selectbox",
+			"label" 		=> "Label font style",
+			"value" 		=> array( "bold", "italic", "underline","normal" ), // ???
+			"description" 	=> "Choose from the following font styles"	
+		),array(
+			"type" 		=> "number",
+			"label" 		=> "Label font size",
+			"description" 	=> "Size of the label fonts in pixels"
+		),array(
+			"type" 		=> "color-selector",
+			"label" 		=> "Label Color",
+			"description" 	=> "Choose the color for the label text"
+		),array(
+			"type" 		=> "selectbox",
+			"label" 		=> "Label Fonts",
+			"value" 		=> array( "none", "solid", "dotted","double", "groove", "ridge", "inset", "outset" ), // ???
+			"description" 	=> "Choose from the following Google fonts"	
+		)
+	),
+	"submit_button_settings" => array(
+		array(
+			"type" 		=> "number",
+			"label" 		=> "Submit button width",
+			"description" 	=> "Submit button width in px"
+		),array(
+			"type" 		=> "number",
+			"label" 		=> "Submit button height",
+			"description" 	=> "Submit button height in px"
+		),array(
+			"type" 		=> "number",
+			"label" 		=> "Submit button border radius",
+			"description" 	=> "Border radius in px"
+		),array(
+			"type" 		=> "number",
+			"label" 		=> "Submit button font size",
+			"description" 	=> "Border radius in px"
+		),array(
+			"type" 		=> "number",
+			"label" 		=> "Submit button border size",
+			"description" 	=> "Size of the submit button border in pixels"
+		),array(
+			"type" 		=> "selectbox",
+			"label" 		=> "Submit button border type",
+			"value" 		=> array( "none", "solid", "dotted","double", "groove", "ridge", "inset", "outset" ), // ???
+			"description" 	=> "Type of the submit button border"	
+		),array(
+			"type" 		=> "color-selector",
+			"label" 		=> "Submit button border color",
+			"description" 	=> "Choose a color for the submit border"
+		),array(
+			"type" 		=> "color-selector",
+			"label" 		=> "Submit button background color",
+			"description" 	=> "Choose a color for the submit background"
+		),
 	));
 }
 /**
 * renders the custom meta box's inputs
 */
-function cf7_style_render_settings( $type, $label, $options, $value, $description ){
+function cf7_style_render_settings( $type, $label, $options, $value, $description, $title ){
 
 	$cf7s_id = strtolower( str_replace( " ", "-", $label ) );
 	?>
@@ -56,7 +178,7 @@ function cf7_style_render_settings( $type, $label, $options, $value, $descriptio
 						<?php } else { ?>
 							<input type="<?php  echo ( $type == 'color-selector' ) ? 'text' : $type; ?>" id="cf7s-<?php  echo $cf7s_id; ?>" name="cf7stylecustom[<?php  echo $cf7s_id; ?>]" value="<?php  echo $value; ?>" <?php if( $class != "" ) echo 'class="'.$class.'"';?>/>
 						<?php }//else end ?>
-						<small><?php  echo __( $description, "cf7style_text_domain"); ?></small>
+						<small <?php echo ( isset( $title ) ? "title='".$title."'" : "" ); ?>><?php  echo __( $description, "cf7style_text_domain"); ?></small>
 					</td>
 				</tr>
 			</table>
@@ -113,9 +235,11 @@ class cf7_style_meta_boxes {
 		}
 	}
 	public function add_meta_box_style_customizer( $post_type, $post ) {
+
 		$post_types = array('cf7_style');     //limit meta box to certain post types
 		$custom_cat = get_the_terms( $post->ID, "style_category" );
-		if ( in_array( $post_type, $post_types ) && $custom_cat[0]->name == "custom style" ) {
+		$custom_name = ( empty( $custom_cat ) ) ? "custom style" : $custom_cat[0]->name;
+		if ( in_array( $post_type, $post_types ) && ( $custom_name == "custom style" ) ) {
 			add_meta_box(
 			'cf7_style_meta_box_style_customizer'
 			,__( 'Custom style settings', 'myplugin_textdomain' )
@@ -127,28 +251,30 @@ class cf7_style_meta_boxes {
 		}
 	}
 	public function render_meta_box_style_customizer( $post ) {
-		$settings_array = unserialize( get_post_meta( $post->ID, 'cf7_style_custom_styles', true ));
 		wp_nonce_field( 'cf_7_style_style_customizer_inner_custom_box', 'cf_7_style_customizer_custom_box_nonce' );
-		?>
-		<div class="general-settings">
-			<h3><?php  echo __('General Style Settings for the current custom style.', "cf7style_text_domain"); ?></h3>
-
-			<?php 
-				foreach( cf7_style_general_settings_array() as $index=>$settings ){
-					$current_val = $settings_array[strtolower( str_replace( " ", "-", $settings["label"] ) )];
-					cf7_style_render_settings( $settings["type"], $settings["label"], $settings["value"], $current_val, $settings["description"] );
-				}
-			?>
-		</div><!-- /.general-settings -->
-		
+		$setting_array = unserialize( get_post_meta( $post->ID, 'cf7_style_custom_styles', true ));
+		foreach( cf7_style_general_settings_array() as $key=>$settings) { ?>
+			<div class="general-settings">
+				<h3><?php  echo __( str_replace( "_", " ", $key ).' for this custom style.', "cf7style_text_domain" ); ?></h3>
+				<?php
+				foreach( $settings as $setting ){
+					$current_val = ( !empty( $setting_array ) ) ? $setting_array[ strtolower( str_replace( " ", "-", $setting["label"] ) ) ] : "";
+					$current_option = ( $setting["type"] == "selectbox" ) ? $setting["value"] : "";
+					$current_title = ( isset( $setting["title"] ) ) ? $setting["title"] : "";
+					cf7_style_render_settings( $setting["type"], $setting["label"], $current_option, $current_val, $setting["description"], $current_title );
+				} ?>
+			</div><!-- /.general-settings -->
+		<?php } ?>
 		<div class="clear"></div>
 		<?php
 	}
 	public function save_style_customizer( $post_id ) {
+
 		if ( ! isset( $_POST['cf_7_style_customizer_custom_box_nonce'] ) )
 			return $post_id;
 
 		$nonce = $_POST['cf_7_style_customizer_custom_box_nonce'];
+		
 
 		// Verify that the nonce is valid.
 		if ( ! wp_verify_nonce( $nonce, 'cf_7_style_style_customizer_inner_custom_box' ) ) {
@@ -169,8 +295,9 @@ class cf7_style_meta_boxes {
 			}
 				
 		}
-		if ( isset( $_POST['cf7stylecustom'] ) ) {
-			$serialized_result = serialize( $_POST['cf7stylecustom'] );
+		$posted_data = $_POST['cf7stylecustom'];
+		if ( is_array( $posted_data ) && isset( $posted_data ) ) {
+			$serialized_result = serialize( $posted_data );
 			update_post_meta( $post_id, 'cf7_style_custom_styles', $serialized_result, "");
 		}
 
@@ -244,6 +371,8 @@ class cf7_style_meta_boxes {
 			'posts_per_page'	=> -1
 		);
 		$currentpostid = get_the_ID();
+		
+		//wp_die( 'aaaa' );
 		$query = new WP_Query( $args );
 		echo '<table class="wp-list-table fixed pages widefat">'; 
 			echo '<thead>';

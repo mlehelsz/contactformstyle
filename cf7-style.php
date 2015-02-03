@@ -278,7 +278,8 @@ function cf7style_load_elements(){
 	if ( ! is_admin() ) {
 		wp_enqueue_script('jquery');
 		wp_enqueue_style( "cf7-style-frontend-style", plugin_dir_url( __FILE__ ) . "css/frontend.css", false, "1.0", "all");
-		wp_enqueue_script( "cf7-style-frontend-script", plugin_dir_url( __FILE__ ) . "js/frontend.js", false, "1.0");  
+		wp_enqueue_script( "cf7-style-frontend-script", plugin_dir_url( __FILE__ ) . "js/frontend.js", false, "1.0");
+		add_action('wp_head', 'cf7_style_custom_css_generator');  
 	}
 }
 
