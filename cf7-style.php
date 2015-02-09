@@ -51,6 +51,90 @@ function get_predefined_cf7_style_template_data() {
 		)
 	);
 }// end of get_predefined_cf7_style_template_data
+function get_cf7style_slug( $post, $id ) {
+	if ( has_shortcode( $post->post_content, 'contact-form-7' ) ) {
+		preg_match('/\[contact-form-7.*id=.(.*).\]/', $post->post_content, $cf7_id );
+		$cf7_id 		= explode( '"', $cf7_id[1] )[0];
+		$cf7_style_id 	= get_post_meta( $cf7_id, 'cf7_style_id' );
+		$cf7_style_data = get_post( $cf7_style_id[0], ARRAY_A );
+		return ( $id == "yes" ) ? $cf7_style_id[0] : $cf7_style_data['post_name'];
+	} else {
+		return false;
+	}
+}// end of get_cf7style_slug
+function count_element_settings( $elements, $checks ){
+	$inner = 0;
+	$arr = array();
+	foreach ($checks as $index => $check) {
+		$inner = 0;
+		foreach ( $elements as $key => $element) {
+			 if ( strpos( $key, $check ) === 0) {
+			 	$arr[ $index ] = $inner++;
+			 }
+		}
+	}
+	return $arr;
+}
+function cf7_style_custom_css_generator(){
+	global $post;
+	$style = "<style class='cf7-style'>";
+	$cf7s_id 				= get_cf7style_slug( $post, "yes" );
+	$cf7s_slug 				= get_cf7style_slug( $post, "no" );
+	$custom_cat = get_the_terms( $cf7s_id, "style_category" );
+	if ($custom_cat[0]->name == "custom style") {
+		$cf7s_custom_settings 	= unserialize( get_post_meta( $cf7s_id, 'cf7_style_custom_styles', true ) );
+		$temp = 0; $temp_1 = 0; $temp_2 = 0; $temp_3 = 0; $temp_4 = 0;
+		$form_set_nr 			= count_element_settings( $cf7s_custom_settings, array( "form", "input", "label", "submit", "textarea" ) );
+		foreach( $cf7s_custom_settings as $setting_key => $setting ){
+			$setting_key_part 	= explode( "-", $setting_key );
+			$second_part		= ( $setting_key_part[0] != "submit" ) ? $setting_key_part[1] : "";
+			$third_part			= ( !empty( $setting_key_part[2] ) ) ? ( ( $setting_key_part[0] != "submit" ) ? "-" : "" ) . $setting_key_part[2] : "";
+			$fourth_part 		= ( !empty( $setting_key_part[3] ) && $setting_key_part[0] == "submit" ) ? "-" . $setting_key_part[3] : "";
+			$classelem = "cf7-style." . $cf7s_slug;
+			switch ( $setting_key_part[ 0 ]) {
+				case 'form':
+					$startelem = $temp;
+					$allelem = $form_set_nr[ 0 ];
+					$temp++;
+					break;
+				case 'input':
+					$startelem = $temp_1;
+					$allelem = $form_set_nr[ 1 ];
+					$classelem .= " input";
+					$temp_1++;
+				break;
+				case 'label':
+					$startelem = $temp_2;
+					$allelem = $form_set_nr[ 2 ];
+					$classelem .= " label,\n.".$classelem." > p";
+					$temp_2++;
+				break;
+				case 'submit':
+					$startelem = $temp_3;
+					$allelem = $form_set_nr[ 3 ];
+					$classelem .= " .wpcf7-submit";
+					$temp_3++;
+				break;
+				case 'textarea':
+					$startelem = $temp_4;
+					$allelem = 1;
+					$classelem .= " textarea";
+					$temp_4++;
+				break;
+				default:
+					# code...
+					break;
+			}
+			$style .= ( $startelem == 0 ) ? "." . $classelem . " {\n" : "";
+			$style .= ( !empty( $setting ) ) ? "\t" . $second_part . $third_part . $fourth_part . ": ". ( ( !is_numeric( $setting ) ) ? $setting : $setting . "px" ) . ";\n" : "";
+			$style .= ( $startelem == $allelem || $allelem == 1 ) ? "}\n" : "";
+
+		}
+		//$style = $cf7s_custom_settings;
+		$style .= "</style>";
+		echo $style;
+	}	
+}// end of cf7_style_custom_css_generator
 
 //include_once( 'cf7-style-settings.php' );
 function cf7_style_admin_scripts(){
@@ -59,17 +143,8 @@ function cf7_style_admin_scripts(){
 	wp_enqueue_script( "cf7_style_admin_js", plugin_dir_url( __FILE__ ) . "admin/js/admin.js", array( 'wp-color-picker' ), false, true );
 }
 function cf7_style_add_class( $class ){
-
 	global $post;
-
-	if ( has_shortcode( $post->post_content, 'contact-form-7' ) ) {
-		preg_match('/\[contact-form-7.*id=.(.*).\]/', $post->post_content, $cf7_id );
-		$cf7_id 	= explode( '"', $cf7_id[1] )[0];
-		$cf7_style_id = get_post_meta( $cf7_id, 'cf7_style_id' );
-		$cf7_style_data =  get_post( $cf7_style_id[0], ARRAY_A );
-		$cf7_style_slug = $cf7_style_data['post_name'];
-		$class .= " cf7-style ".$cf7_style_slug;
-	}
+	$class .= " cf7-style ".get_cf7style_slug( $post, "no" );
 	return $class;
 }// end of cf7_style_add_class
 /**

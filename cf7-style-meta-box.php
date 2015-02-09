@@ -14,13 +14,23 @@ function cf7_style_general_settings_array(){
 			"description" 	=> "Form width in pixels"
 		),array(
 			"type" 		=> "number",
-			"label" 		=> "Form border size",
-			"description" 	=> "Form border size in pixels"
+			"label" 		=> "Form border width",
+			"description" 	=> "Form border width in pixels"
 		),array(
 			"type" 		=> "selectbox",
-			"label" 		=> "Form border type",
+			"label" 		=> "Form border style",
 			"value" 		=> array( "none", "solid", "dotted","double", "groove", "ridge", "inset", "outset" ), // ???
-			"description" 	=> "Type of the Border of the Form"	
+			"description" 	=> "Style of the Border of the Form"	
+		),array(
+			"type" 		=> "text",
+			"label" 		=> "Form padding",
+			"description" 	=> "hover here for example",
+			"title"		=> "Ex 1: 25px 50px 75px 100px;  top padding is 25px right padding is 50px bottom padding is 75px left padding is 100px   Ex 2: 25px 50px 75px;  top padding is 25px right and left paddings are 50px bottom padding is 75px   Ex 3: 25px 50px;  top and bottom paddings are 25px right and left paddings are 50px   Ex 4: 25px;  all four paddings are 25px  "
+		),array(
+			"type" 		=> "text",
+			"label" 		=> "Form margin",
+			"description" 	=> "hover here for example",
+			"title"		=> "Ex 1: 25px 50px 75px 100px;  top margin is 25px right margin is 50px bottom margin is 75px left margin is 100px   Ex 2: 25px 50px 75px;  top margin is 25px right and left margin are 50px bottom margin is 75px   Ex 3: 25px 50px;  top and bottom margin are 25px right and left margin are 50px   Ex 4: 25px;  all four margin are 25px"
 		),array(
 			"type" 		=> "color-selector",
 			"label" 		=> "Form border color",
@@ -38,30 +48,30 @@ function cf7_style_general_settings_array(){
 			"description" 	=> "Choose the background color of the input"
 		),array(
 			"type" 		=> "color-selector",
-			"label" 		=> "Input Text Color",
+			"label" 		=> "Input Color",
 			"description" 	=> "Choose the color for the input text"
 		),array(
 			"type" 		=> "color-selector",
 			"label" 		=> "Input Border Color",
 			"description" 	=> "Choose a color for the input border"
-		),array(
+		)/*,array(
 			"type" 		=> "selectbox",
 			"label" 		=> "Input Fonts",
 			"value" 		=> array( "none", "solid", "dotted","double", "groove", "ridge", "inset", "outset" ), // ???
 			"description" 	=> "Choose from the following Google Fonts"	
-		),array(
+		)*/,array(
 			"type" 		=> "number",
 			"label" 		=> "Input font size",
 			"description" 	=> "Size of the input fonts in pixels"
 		),array(
 			"type" 		=> "number",
-			"label" 		=> "Input border size",
+			"label" 		=> "Input border width",
 			"description" 	=> "Size of the input border in pixels"
 		),array(
 			"type" 		=> "selectbox",
-			"label" 		=> "Input border type",
+			"label" 		=> "Input border style",
 			"value" 		=> array( "none", "solid", "dotted","double", "groove", "ridge", "inset", "outset" ), // ???
-			"description" 	=> "Type of the input border"	
+			"description" 	=> "style of the input border"	
 		),array(
 			"type" 		=> "number",
 			"label" 		=> "Input border radius",
@@ -69,8 +79,13 @@ function cf7_style_general_settings_array(){
 		),array(
 			"type" 		=> "selectbox",
 			"label" 		=> "Input font style",
-			"value" 		=> array( "bold", "italic", "underline","normal" ), // ???
+			"value" 		=> array( "normal", "italic", "oblique" ), // ???
 			"description" 	=> "Choose from the following font styles"	
+		),array(
+			"type" 		=> "selectbox",
+			"label" 		=> "Input font weight",
+			"value" 		=> array( "normal", "bold", "bolder", "lighter", "initial", "inherit" ), // ???
+			"description" 	=> "Choose from the following font weights"	
 		),array(
 			"type" 		=> "number",
 			"label" 		=> "Input width",
@@ -79,10 +94,6 @@ function cf7_style_general_settings_array(){
 			"type" 		=> "number",
 			"label" 		=> "Input height",
 			"description" 	=> "Input height in pixels"
-		),array(
-			"type" 		=> "number",
-			"label" 		=> "Textarea height",
-			"description" 	=> "Textarea height in pixels"
 		),array(
 			"type" 		=> "text",
 			"label" 		=> "Input padding",
@@ -94,10 +105,19 @@ function cf7_style_general_settings_array(){
 			"description" 	=> "hover here for example",
 			"title"		=> "Ex 1: 25px 50px 75px 100px;  top margin is 25px right margin is 50px bottom margin is 75px left margin is 100px   Ex 2: 25px 50px 75px;  top margin is 25px right and left margin are 50px bottom margin is 75px   Ex 3: 25px 50px;  top and bottom margin are 25px right and left margin are 50px   Ex 4: 25px;  all four margin are 25px"
 		),array(
+			"type" 		=> "number",
+			"label" 		=> "Textarea height",
+			"description" 	=> "Textarea height in pixels"
+		),array(
 			"type" 		=> "selectbox",
 			"label" 		=> "Label font style",
-			"value" 		=> array( "bold", "italic", "underline","normal" ), // ???
+			"value" 		=> array( "normal", "italic", "oblique" ),
 			"description" 	=> "Choose from the following font styles"	
+		),array(
+			"type" 		=> "selectbox",
+			"label" 		=> "Label font weight",
+			"value" 		=> array( "normal", "bold", "bolder", "lighter", "initial", "inherit" ), // ???
+			"description" 	=> "Choose from the following label font weights"	
 		),array(
 			"type" 		=> "number",
 			"label" 		=> "Label font size",
@@ -106,12 +126,12 @@ function cf7_style_general_settings_array(){
 			"type" 		=> "color-selector",
 			"label" 		=> "Label Color",
 			"description" 	=> "Choose the color for the label text"
-		),array(
+		)/*,array(
 			"type" 		=> "selectbox",
 			"label" 		=> "Label Fonts",
 			"value" 		=> array( "none", "solid", "dotted","double", "groove", "ridge", "inset", "outset" ), // ???
 			"description" 	=> "Choose from the following Google fonts"	
-		)
+		)*/
 	),
 	"submit_button_settings" => array(
 		array(
@@ -132,11 +152,11 @@ function cf7_style_general_settings_array(){
 			"description" 	=> "Border radius in px"
 		),array(
 			"type" 		=> "number",
-			"label" 		=> "Submit button border size",
+			"label" 		=> "Submit button border width",
 			"description" 	=> "Size of the submit button border in pixels"
 		),array(
 			"type" 		=> "selectbox",
-			"label" 		=> "Submit button border type",
+			"label" 		=> "Submit button border style",
 			"value" 		=> array( "none", "solid", "dotted","double", "groove", "ridge", "inset", "outset" ), // ???
 			"description" 	=> "Type of the submit button border"	
 		),array(
