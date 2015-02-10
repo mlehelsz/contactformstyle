@@ -52,7 +52,8 @@ function get_predefined_cf7_style_template_data() {
 	);
 }// end of get_predefined_cf7_style_template_data
 function get_cf7style_slug( $post, $id ) {
-	if ( has_shortcode( $post->post_content, 'contact-form-7' ) ) {
+	$post_content = ( !empty( $post ) ) ? $post->post_content : "";
+	if ( has_shortcode( $post_content, 'contact-form-7' ) ) {
 		preg_match('/\[contact-form-7.*id=.(.*).\]/', $post->post_content, $cf7_id );
 		$cf7_id 		= explode( '"', $cf7_id[1] )[0];
 		$cf7_style_id 	= get_post_meta( $cf7_id, 'cf7_style_id' );
@@ -65,10 +66,10 @@ function get_cf7style_slug( $post, $id ) {
 function count_element_settings( $elements, $checks ){
 	$inner = 0;
 	$arr = array();
-	foreach ($checks as $index => $check) {
+	foreach ( $checks as $index => $check ) {
 		$inner = 0;
-		foreach ( $elements as $key => $element) {
-			 if ( strpos( $key, $check ) === 0) {
+		foreach ( $elements as $key => $element ) {
+			 if ( strpos( $key, $check ) === 0 ) {
 			 	$arr[ $index ] = $inner++;
 			 }
 		}
@@ -77,56 +78,61 @@ function count_element_settings( $elements, $checks ){
 }
 function cf7_style_custom_css_generator(){
 	global $post;
-	$style = "<style class='cf7-style'>";
+	$style 					= "<style class='cf7-style' media='screen' type='text/css'>";
 	$cf7s_id 				= get_cf7style_slug( $post, "yes" );
 	$cf7s_slug 				= get_cf7style_slug( $post, "no" );
-	$custom_cat = get_the_terms( $cf7s_id, "style_category" );
-	if ($custom_cat[0]->name == "custom style") {
-		$cf7s_custom_settings 	= unserialize( get_post_meta( $cf7s_id, 'cf7_style_custom_styles', true ) );
-		$temp = 0; $temp_1 = 0; $temp_2 = 0; $temp_3 = 0; $temp_4 = 0;
+	$custom_cat 				= get_the_terms( $cf7s_id, "style_category" );
+	$custom_cat_name 			= ( !empty( $custom_cat ) ) ? $custom_cat[ 0 ]->name : "";
+	if (  $custom_cat_name == "custom style" ) {
+		$cf7s_custom_settings 		= unserialize( get_post_meta( $cf7s_id, 'cf7_style_custom_styles', true ) );
+		$temp 				= 0; 
+		$temp_1 			= 0;
+		$temp_2			= 0; 
+		$temp_3 			= 0; 
+		$temp_4 			= 0;
 		$form_set_nr 			= count_element_settings( $cf7s_custom_settings, array( "form", "input", "label", "submit", "textarea" ) );
 		foreach( $cf7s_custom_settings as $setting_key => $setting ){
 			$setting_key_part 	= explode( "-", $setting_key );
 			$second_part		= ( $setting_key_part[0] != "submit" ) ? $setting_key_part[1] : "";
-			$third_part			= ( !empty( $setting_key_part[2] ) ) ? ( ( $setting_key_part[0] != "submit" ) ? "-" : "" ) . $setting_key_part[2] : "";
+			$third_part		= ( !empty( $setting_key_part[2] ) ) ? ( ( $setting_key_part[0] != "submit" ) ? "-" : "" ) . $setting_key_part[2] : "";
 			$fourth_part 		= ( !empty( $setting_key_part[3] ) && $setting_key_part[0] == "submit" ) ? "-" . $setting_key_part[3] : "";
 			$classelem = "cf7-style." . $cf7s_slug;
 			switch ( $setting_key_part[ 0 ]) {
 				case 'form':
-					$startelem = $temp;
-					$allelem = $form_set_nr[ 0 ];
+					$startelem 	= $temp;
+					$allelem 	= $form_set_nr[ 0 ];
 					$temp++;
 					break;
 				case 'input':
-					$startelem = $temp_1;
-					$allelem = $form_set_nr[ 1 ];
-					$classelem .= " input";
+					$startelem 	= $temp_1;
+					$allelem 	= $form_set_nr[ 1 ];
+					$classelem 	.= " input";
 					$temp_1++;
-				break;
+					break;
 				case 'label':
-					$startelem = $temp_2;
-					$allelem = $form_set_nr[ 2 ];
-					$classelem .= " label,\n.".$classelem." > p";
+					$startelem 	= $temp_2;
+					$allelem 	= $form_set_nr[ 2 ];
+					$classelem 	.= " label,\n.".$classelem." > p";
 					$temp_2++;
-				break;
+					break;
 				case 'submit':
-					$startelem = $temp_3;
-					$allelem = $form_set_nr[ 3 ];
-					$classelem .= " .wpcf7-submit";
+					$startelem 	= $temp_3;
+					$allelem 	= $form_set_nr[ 3 ];
+					$classelem 	.= " .wpcf7-submit";
 					$temp_3++;
-				break;
+					break;
 				case 'textarea':
-					$startelem = $temp_4;
-					$allelem = 1;
-					$classelem .= " textarea";
+					$startelem 	= $temp_4;
+					$allelem 	= 1;
+					$classelem 	.= " textarea";
 					$temp_4++;
-				break;
+					break;
 				default:
 					# code...
 					break;
 			}
 			$style .= ( $startelem == 0 ) ? "." . $classelem . " {\n" : "";
-			$style .= ( !empty( $setting ) ) ? "\t" . $second_part . $third_part . $fourth_part . ": ". ( ( !is_numeric( $setting ) ) ? $setting : $setting . "px" ) . ";\n" : "";
+			$style .= ( !empty( $setting ) && $setting != "Default" ) ? "\t" . $second_part . $third_part . $fourth_part . ": ". ( ( !is_numeric( $setting ) ) ? $setting : $setting . "px" ) . ";\n" : "";
 			$style .= ( $startelem == $allelem || $allelem == 1 ) ? "}\n" : "";
 
 		}
