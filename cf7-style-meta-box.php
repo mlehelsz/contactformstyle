@@ -232,9 +232,14 @@ class cf7_style_meta_boxes {
 		add_action( 'save_post', array( $this, 'save_style_selector' ) );
 		//image meta box init
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_box_style_image' ) );
+                //add paypal button
+                add_action( 'add_meta_boxes', array( $this, 'add_meta_box_style_paypal' ) );
 		//custom style meta box1
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_box_style_customizer' ), 10, 2 );
 		add_action( 'save_post', array( $this, 'save_style_customizer' ) );
+                //fonts
+                add_action( 'add_meta_boxes', array( $this, 'add_meta_box_font_selector' ) );
+                add_action( 'save_post', array( $this, 'save_font_id' ) );
 	}
 
 	/**************************************************
@@ -455,8 +460,8 @@ class cf7_style_meta_boxes {
 			echo '<img src="' . plugins_url() . '/contact-form-7-style/' . $image . '" alt="' . $post->title . '" />';
 		} else {
 			//here will be the placeholder in case the image is not available
-			$image = '';
-			echo '<img src="' . plugins_url() . '/contact-form-7-style/' . $image . '" alt="' . $post->title . '" />';
+			$image = 'default_form.jpg';
+			echo '<img src="' . plugins_url() . '/contact-form-7-style/images/' . $image . '" alt="' . $post->title . '" />';
 		}
 	}
 	
@@ -464,13 +469,172 @@ class cf7_style_meta_boxes {
 	 *IMAGE META BOX ENDS HERE
 	 ***************************
 	 */
+        /*
+         * Meta box for font selector
+         */
+        public function add_meta_box_font_selector( $post_type ) {
+            $post_types = array('cf7_style');     //limit meta box to certain post types
+            if ( in_array( $post_type, $post_types )) {
+                    add_meta_box(
+                            'cf7_style_meta_box_font_selector'
+                            ,__( 'Select a Google Font', 'myplugin_textdomain' )
+                            ,array( $this, 'render_font_selector' )
+                            ,$post_type
+                            ,'advanced'
+                            ,'high'
+                    );
+            }
+        }
+        /*
+         * show za metabox with only 5 google fonts for now. later we will make a search box for this. 
+         * Emilys Candy - 196
+         * Henny Penny - 275
+         * Joti One - 309
+         * Open Sans - 458
+         * Pirata One - 496
+         */
+        public function render_font_selector( $post ) {
+            wp_nonce_field( 'cf_7_style_font_inner_custom_box', 'cf_7_style_font_custom_box_nonce' );
+            //getting all google fonts
+            $google_list = file_get_contents( 'https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyBAympIKDNKmfxhI3udY-U_9vDWSdfHrEo' );
+            $font_obj = json_decode( $google_list );
+            $cf7_style_font = get_post_meta( $post->ID, 'cf7_style_font', true );
+            $selected = '';
+            echo '<select name="cf7_style_font_selector">';
+            echo '<option>None</option>';
+            foreach ($font_obj->items as $font) {
+                 echo '<option value="' . $font->family . '"' . ( $cf7_style_font == $font->family ? 'selected="selected"' : '' ) . '>' . $font->family . '</option>';
+            }
+            echo '</select>';
+        }
+        
+        /**
+	 * Save the font id
+	 */
+	public function save_font_id( $post_id ) {
+		if ( ! isset( $_POST['cf_7_style_font_custom_box_nonce'] ) )
+			return $post_id;
 
-	
+		$nonce = $_POST['cf_7_style_font_custom_box_nonce'];
+
+		if ( ! wp_verify_nonce( $nonce, 'cf_7_style_font_inner_custom_box' ) ) {
+			return $post_id;
+		}
+
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return $post_id;
+		}
+
+		if ( 'page' == $_POST['post_type'] ) {
+			if ( ! current_user_can( 'edit_page', $post_id ) ) {
+				return $post_id;
+			}
+		} else {
+			if ( ! current_user_can( 'edit_post', $post_id ) ) {
+				return $post_id;
+			}
+				
+		}
+		
+                if ( isset ( $_POST['cf7_style_font_selector'] ) ) {
+                    update_post_meta( $post_id, 'cf7_style_font', $_POST['cf7_style_font_selector'] );
+                }
+	}
+        /*************************************************
+	 * Adds the meta box container for IMAGE PREVIEW
+	 * IMAGE META BOX STARTS HERE
+	 */
+	public function add_meta_box_style_paypal( $post_type ) {
+		$post_types = array('cf7_style');     //limit meta box to certain post types
+		if ( in_array( $post_type, $post_types )) {
+			add_meta_box(
+				'cf7_style_meta_box_paypal'
+				,__( 'Donate', 'myplugin_textdomain' )
+				,array( $this, 'render_meta_paypal' )
+				,$post_type
+				,'side'
+				,'high'
+			);
+		}
+	}
+	/*
+	 * renders the image
+	 */
+	public function render_meta_paypal( $post ) { ?>
+            <p>Your donation can make us work more and improve this plugin.</p>
+            <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QP48AKYN67WHA" target="_blank">
+                <img src="https://www.paypalobjects.com/webstatic/i/logo/rebrand/ppcom.svg">
+            </a>
+	<?php }
 }
 
+//gets the slug of a post
 function cf7_style_the_slug() {
-	global $post; 
+    global $post; 
     $post_data = get_post($post->ID, ARRAY_A);
     $slug = $post_data['post_name'];
     return $slug; 
+}
+//enques the font
+function enque_selected_font() {
+    if ( is_page() || is_single() ) {
+        $theid = get_queried_object_id();
+        $queried_object = get_queried_object();
+        
+        if ( has_shortcode( $queried_object->post_content, 'contact-form-7' ) ) {
+            $pattern= '~\[contact-form-7.+id="\K([^,]*)~';
+            
+            preg_match($pattern, $queried_object->post_content, $cf7_id );
+            $cf7_idstring = explode( '"', $cf7_id[1] );
+            $getstyle = get_post_meta( $cf7_idstring[0], 'cf7_style_id', true );
+            $fontid = get_post_meta( $getstyle, 'cf7_style_font', true );
+            $googlefont = preg_replace("/ /","+",$fontid);
+            $google_list = file_get_contents( 'https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyBAympIKDNKmfxhI3udY-U_9vDWSdfHrEo' );
+            $font_obj = json_decode( $google_list );
+            
+            wp_register_style('googlefont-cf7style', 'http://fonts.googleapis.com/css?family=' . $googlefont . ':100,200,300,400,500,600,700,800,900&subset=latin,latin-ext,cyrillic,cyrillic-ext,greek-ext,greek,vietnamese', array(), false, 'all');
+            wp_enqueue_style('googlefont-cf7style');
+            
+        } else {
+            //echo 'no';
+        }
+    }
+}
+add_action( 'wp_enqueue_scripts', 'enque_selected_font' );
+
+/*
+ * returns the name of the font on the current page/post
+ */
+function return_font_name( $postid ) {
+    $getpost = get_post( $postid );
+    if ( has_shortcode( $getpost->post_content , 'contact-form-7' ) ) {
+        $pattern= '~\[contact-form-7.+id="\K([^,]*)~';
+        preg_match($pattern, $getpost->post_content, $cf7_id );
+        $cf7_idstring = explode( '"', $cf7_id[1] );
+        $getstyle = get_post_meta( $cf7_idstring[0], 'cf7_style_id', true );
+        $fontname = get_post_meta( $getstyle, 'cf7_style_font', true );
+        return ( $fontname );
+    } else {
+        return false;
+    }
+}
+
+/*
+ * hides change permalink and view buttons on editing screen
+ */
+add_action('admin_head', 'hide_edit_permalinks_on_style_customizer');
+function hide_edit_permalinks_on_style_customizer() {
+    $currentScreen = get_current_screen();
+    if ( $currentScreen->post_type == 'cf7_style' ) { ?>
+        <style type="text/css">
+        <!--
+        #titlediv {
+            margin-bottom: 10px;
+        }
+        #edit-slug-box, .editinline, .view{
+            display: none;
+        }
+        -->
+        </style>
+    <?php }
 }
