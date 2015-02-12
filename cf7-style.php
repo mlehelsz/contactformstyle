@@ -55,9 +55,8 @@ function get_cf7style_slug( $post, $id ) {
 	$post_content = ( !empty( $post ) ) ? $post->post_content : "";
 	if ( has_shortcode( $post_content, 'contact-form-7' ) ) {
 		preg_match('/\[contact-form-7.*id=.(.*).\]/', $post->post_content, $cf7_id );
-		$cf7_idexp 		= explode( '"', $cf7_id[1] );
-                $cf7_id = $cf7_idexp[0];
-		$cf7_style_id 	= get_post_meta( $cf7_id, 'cf7_style_id' );
+		$cf7_id = explode( '"', $cf7_id[1] );
+		$cf7_style_id 	= get_post_meta( $cf7_id[0], 'cf7_style_id' );
 		$cf7_style_data = get_post( $cf7_style_id[0], ARRAY_A );
 		return ( $id == "yes" ) ? $cf7_style_id[0] : $cf7_style_data['post_name'];
 	} else {
@@ -88,7 +87,7 @@ function cf7_style_custom_css_generator(){
 		$cf7s_custom_settings 		= unserialize( get_post_meta( $cf7s_id, 'cf7_style_custom_styles', true ) );
 		$temp 				= 0; 
 		$temp_1 			= 0;
-		$temp_2                         = 0; 
+		$temp_2                         		= 0; 
 		$temp_3 			= 0; 
 		$temp_4 			= 0;
 		$form_set_nr 			= count_element_settings( $cf7s_custom_settings, array( "form", "input", "label", "submit", "textarea" ) );
@@ -137,7 +136,7 @@ function cf7_style_custom_css_generator(){
 			$style .= ( $startelem == $allelem || $allelem == 1 ) ? "}\n" : "";
 
 		}
-		$style .= '.cf7-style.' . $cf7s_slug . '{ font-family: ' . return_font_name( $post->ID ) . '; } ';
+		$style .= '.cf7-style.' . $cf7s_slug . "{\n\t font-family: " . return_font_name( $post->ID ) . ";\n} ";
                 //$style = $cf7s_custom_settings;
 		$style .= "</style>";
 		echo $style;

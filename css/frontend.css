@@ -36,9 +36,9 @@
  }
  .cf7-style input:focus,
  .cf7-style textarea:focus,
- .cf7-style input[ type="submit" ]:hover {
+ .cf7-style input[ type="submit" ]:hover,
+ .cf7-style textarea {
  	background-color: inherit;
- 	border: 0;
  }
 
 /**
